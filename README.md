@@ -1,69 +1,54 @@
 # Demand Forecasting for Supply Chain Optimization Using Historical Sales Data
 
-## Problem Statement
-This project uses historical retail sales data to develop predictive models for forecasting daily sales and supporting inventory management and supply chain planning. It compares multiple regression algorithms to identify the best-performing model based on forecasting error metrics.
+## 1. Problem Statement
+Demand forecasting helps businesses estimate future product demand and sales using historical data. Inaccurate forecasts can lead to overstocking, stock shortages, and inefficient inventory management. This project develops and evaluates machine learning models to predict future demand and sales using historical sales patterns and relevant features.
 
-## Datasets
-**1. Store Item Demand Forecasting Challenge**
+## 2. Datasets
+Two datasets were used and analyzed separately:
 
-Contains historical sales records by date, store, and item.
+- **Store Item Demand Forecasting Challenge:** Historical daily sales data for individual store-item combinations from 2013 to 2017.
+- **Rossmann Store Sales:** Historical daily sales data from Rossmann stores from 2013 to 2015, including store information and promotional details.
 
-Dataset: https://www.kaggle.com/competitions/demand-forecasting-kernels-only
+Sources:
+- [Store Item Demand Forecasting Challenge](https://www.kaggle.com/competitions/demand-forecasting-kernels-only)
+- [Rossmann Store Sales](https://www.kaggle.com/competitions/rossmann-store-sales)
 
-**2. Rossmann Store Sales**
+## 3. Methodology and Approach
+The project follows the Knowledge Discovery in Databases (KDD) process:
 
-Contains historical store sales along with supporting information such as dates, promotions, customer counts, and holidays.
+1. **Data Selection:** Loaded the two datasets and selected relevant sales, store, item, and date information.
+2. **Data Cleaning:** Handled missing values and prepared the datasets for analysis.
+3. **Data Transformation:** Extracted date-based features and created lag features and rolling statistics from historical sales. Promotional information was also used for the Rossmann dataset.
+4. **Model Development:** Trained and compared five machine learning models: Linear Regression, Decision Tree, Random Forest, Gradient Boosting, and LightGBM.
+5. **Model Evaluation:** Used chronological training and testing splits to evaluate forecasts using MAE, MSE, RMSE, WAPE, and R².
+6. **Knowledge Presentation:** Compared model performance and visualized forecasts and feature importance to identify useful demand patterns.
 
-Dataset: https://www.kaggle.com/competitions/rossmann-store-sales
+## 4. Steps Followed
+1. Loaded and explored both datasets independently.
+2. Cleaned and preprocessed the data.
+3. Created date, lag, and rolling-statistic features.
+4. Split the data chronologically into training and testing sets.
+5. Trained the five machine learning models.
+6. Generated predictions for the test periods.
+7. Evaluated and compared model performance using regression metrics.
+8. Visualized actual versus predicted values and analyzed feature importance.
+9. Identified the best-performing model for each dataset.
 
-Both datasets are analysed independently and are not merged.
+## 5. Results
+LightGBM achieved the best overall performance on both datasets.
 
-## Methodology
-1. Data loading and understanding
-2. Data cleaning and preprocessing
-3. Exploratory Data Analysis (EDA)
-4. Data transformation and feature engineering
-5. Daily sales aggregation and lag feature creation
-6. Regression model development using Linear Regression, Decision Tree, Random Forest, Gradient Boosting, and Extra Trees
-7. Model evaluation using MAE, RMSE, WAPE, and R²
-8. Model comparison, visualization, and result interpretation
+| Dataset | Best Model | MAE | RMSE | WAPE | R² |
+|---|---|---:|---:|---:|---:|
+| Store Item Demand | LightGBM | 5.87 | 7.61 | 10.75% | 0.9284 |
+| Rossmann Store Sales | LightGBM | 555.9 | 808.4 | 7.97% | 0.9300 |
 
-The project follows the six stages of the KDD process: Selection, Data Cleaning, Transformation, Data Mining, Interpretation and Evaluation, and Knowledge Presentation.
+## 6. Tools and Technologies
+- Python
+- Pandas and NumPy
+- Scikit-learn
+- LightGBM
+- Matplotlib and Seaborn
+- Jupyter Notebook / Google Colab
 
-## Results
-
-**Store Item Demand Forecasting Challenge**
-- Best model: Extra Trees Regressor
-- MAE: 540.58
-- RMSE: 898.45
-- WAPE: 1.8349%
-- R²: 0.980755
-
-**Rossmann Store Sales**
-- Best model: Extra Trees Regressor
-- MAE: 724,880.89
-- RMSE: 1,332,483
-- WAPE: 10.9455%
-- R²: 0.828052
-
-Extra Trees Regressor achieved the best overall performance among the five tested models on both datasets in the project's chronological validation experiments.
-
-## Tools Used
-Python, Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, Jupyter Notebook, Google Colab, Git, and GitHub.
-
-## How to Run
-1. Download the project notebook from this repository.
-2. Open it in Jupyter Notebook or Google Colab.
-3. Download both datasets from the Kaggle links above.
-4. Place the CSV files in the locations specified in the notebook, or update the file paths.
-5. Install the required Python libraries if needed.
-6. Run the notebook cells in order to perform preprocessing, feature engineering, model training, evaluation, and visualization.
-
-## Note
-The experiments use daily aggregated sales rather than individual forecasts for every store-item combination. The reported metrics are based on a chronological validation split of the labelled training data, not the hidden official Kaggle test sets. Lag features may use actual previous sales observations during rolling validation, so the results should not automatically be interpreted as multi-day forecasts made entirely in advance. The two datasets have different sales scales, so their absolute error values should not be compared directly.
-
-## Author
-**Vismayaa Rajan**  
-Symbiosis Institute of Technology, Nagpur  
-Course: Predictive Analytics  
-Academic Year: 2026
+## 7. Conclusion
+The project demonstrates how machine learning can use historical sales patterns to forecast demand and support inventory planning and supply chain decisions. Among the models evaluated, LightGBM produced the strongest overall results on both datasets.
